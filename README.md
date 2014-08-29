@@ -1,4 +1,7 @@
-<a href="http://iotic-labs.com"><img src="http://iotic-labs.com/iotic-labs_logo.png" bg-color="black" title="Iotic-labs: Join the internet of things"></a>
+<div background-color="black">
+    <a href="http://iotic-labs.com"><img src="http://iotic-labs.com/iotic-labs_logo.png" title="Iotic-labs: Join the internet of things"></a>
+</div>
+
 Iotic-Labs
 =========
 Is an exciting new start-up in the IoT, based around Cambridge in the UK.  We are spun out of [Arkessa] a global provider of M2M and IoT solutions. Our goal is to make joining the Internet of Things easy, safe, secure and fun.
