@@ -1,5 +1,5 @@
 <div background-color="black">
-    <a href="http://iotic-labs.com"><img src="http://iotic-labs.com/iotic-labs_logo.png" title="Iotic-labs: Join the internet of things"></a>
+    <a href="http://iotic-labs.com"><img src="https://github.com/Iotic-Labs/demo/blob/master/iotic-labs_logo600Black.png" title="Iotic-labs: Join the internet of things"></a>
 </div>
 
 Iotic-Labs
