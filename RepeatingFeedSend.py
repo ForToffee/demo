@@ -4,9 +4,10 @@
 # Uses this to send feed data to the IOT
 
 import IoticLabs.JoinIOT as IOT
+from config import *
 import time
 
-MY_NAME     = "Clock"
+MY_NAME     = MY_COMPUTER + "_Clock"
 MY_FEED     = "tick"
 REPEAT_TIME = 1
 

@@ -4,10 +4,12 @@
 # Print this data on the screen.
 
 import IoticLabs.JoinIOT as IOT
+from config import *
 
-MY_NAME    = "ClockWatcher"
-THEIR_NAME = "Clock"
-THEIR_FEED = "tick"
+MY_NAME        = MY_COMPUTER + "_ClockWatcher"
+THEIR_COMPUTER = "IOT_Pi_2"
+THEIR_NAME     = "Clock"
+THEIR_FEED     = "tick"
 
 IOT.joinAs(MY_NAME)
 
