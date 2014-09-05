@@ -1,7 +1,8 @@
-# ActReceiveLED.py  08/08/2014  D.J.Whale
+# Reveal.py  05/09/2014  D.J.Whale
 #
-# Publishes an actuator
-# When this actuator is poked, turns the LED on and off
+# Reveals an LED so it can be remotely controlled.
+#
+# This script is designed only for the Raspberry Pi 
 
 import IoticLabs.JoinIOT as IOT
 from config import *
@@ -9,24 +10,25 @@ import time
 import RPi.GPIO as GPIO
 from pibrella import *
 
-MY_NAME        = MY_COMPUTER + "_ActReceiveLED"
-MY_ACTUATOR    = "led"
-THEIR_COMPUTER = "IOT_Pi_2"
-THEIR_NAME     = THEIR_COMPUTER + "_demo"
-
-
-IOT.joinAs(MY_NAME)
+MY_NAME        = MY_COMPUTER + "_Reveal"
+MY_ACTUATOR    = "LED"
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(RED_LED, GPIO.OUT)
+GPIO.output(RED_LED, False)
+
+IOT.joinAs(MY_NAME)
+
 
 def newData(actuator, value):
   print("data:" + str(value))
-  state = actuator.isTrue(value)
-  GPIO.output(RED_LED, state)
+  #state = actuator.isTrue(value)
+  GPIO.output(RED_LED, True)
+  time.sleep(0.5)
+  GPIO.output(RED_LED, False)
+
   
 IOT.reveal(MY_ACTUATOR, incoming=newData)
-
 IOT.loop()
 
 IOT.cleanup()

@@ -1,7 +1,8 @@
-# ButtonActSend.py  08/08/2014  D.J.Whale
+# Tell.py  05/09/2014  D.J.Whale
 #
-# Press a hardware button, sensed by GPIO.
-# Sends this to a remote actuator, which does someting with it
+# Tells a revealed actuator to do something.
+#
+# This script is designed to run on the Raspberry Pi only
 
 import IoticLabs.JoinIOT as IOT
 from config import *
@@ -9,30 +10,34 @@ import time
 import RPi.GPIO as GPIO
 from pibrella import *
 
-MY_NAME        = MY_COMPUTER + "_ButtonActSend"
+MY_NAME        = MY_COMPUTER + "_Tell"
 THEIR_COMPUTER = "IOT_Pi_2"
-THEIR_NAME     = THEIR_COMPUTER + "_demo"
-THEIR_ACTUATOR = "pokeme"
+THEIR_NAME     = THEIR_COMPUTER + "_Reveal"
+THEIR_ACTUATOR = "LED"
 
 POLL_TIME = 0.5
 
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(BUTTON, GPIO.IN)
 
 IOT.joinAs(MY_NAME)
-pokeme = IOT.attachTo(THEIR_NAME, THEIR_ACTUATOR)
+led = IOT.attachTo(THEIR_NAME, THEIR_ACTUATOR)
 
-GPIO.setmode(GPIO.BCM)
 
 def main():
-  last_b = False
-  GPIO.setup(BUTTON, GPIO.IN)
+  b = False
   
   while True:
     time.sleep(POLL_TIME)
-    b = GPIO.input(BUTTON)
-    if b != last_b:
-      last_b = b
-      print("sending")
-      pokeme.tell(b)
+    if GPIO.input(BUTTON) == True:
+      if not b:
+        print("pressed")
+        led.tell(b) 
+        b = True
+    else:
+      if b:
+        print("released")
+        b = False
     
 try:
   main()

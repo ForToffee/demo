@@ -823,8 +823,8 @@ def getGUID(entityId, update=False):
 
   print("looking for entity:" + entityId)
   for guid,data in registrar_database['entities'].iteritems():
-    print("guid:" + str(guid))
-    print("data:" + str(data))
+    #print("guid:" + str(guid))
+    #print("data:" + str(data))
     lid = data['lid']
     if data.has_key('meta'):
       meta = data['meta']
