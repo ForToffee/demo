@@ -4,14 +4,16 @@
 # Sends this to a remote actuator, which does someting with it
 
 import IoticLabs.JoinIOT as IOT
+from config import *
 import time
 import RPi.GPIO as GPIO
+from pibrella import *
 
-MY_NAME = "ButtonActSend"
-THEIR_NAME = "demo"
+MY_NAME        = MY_COMPUTER + "_ButtonActSend"
+THEIR_COMPUTER = "IOT_Pi_2"
+THEIR_NAME     = THEIR_COMPUTER + "_demo"
 THEIR_ACTUATOR = "pokeme"
 
-BUTTON = 10
 POLL_TIME = 0.5
 
 
@@ -37,5 +39,7 @@ try:
 finally:
   GPIO.cleanup()
   IOT.leave()
+
+# END
   
   

@@ -6,9 +6,10 @@
 # send this on a separate feed that can be consumed by others.
 
 import IoticLabs.JoinIOT as IOT
+from config import *
 import time
 
-MY_NAME     = "ActReceiveCountSendFeed"
+MY_NAME     = MY_COMPUTER + "_ActReceiveCountSendFeed"
 MY_ACTUATOR = "printme_after" + str(COUNT_LIMIT)
 MY_FEED     = "poked_" + str(COUNT_LIMIT) + "_times"
 

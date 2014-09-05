@@ -4,12 +4,14 @@
 # 'AND' them together and send via a new feed the result
 
 import IoticLabs.JoinIOT as IOT
+from config import *
 import time
 
-MY_NAME    = "FeedsReceiveANDFeedSend"
-MY_FEED    = "all_buttons"
-THEIR_NAME = "demo"
-THEIR_FEED = "button"
+MY_NAME        = MY_COMPUTER + "_FeedsReceiveANDFeedSend"
+MY_FEED        = "all_buttons"
+THEIR_COMPUTER = "IOT_Pi_2"
+THEIR_NAME     = THEIR_COMPUTER + "_demo"
+THEIR_FEED     = "button"
 
 button_states[] = {False, False, False}
 

@@ -4,11 +4,12 @@
 # Uses this to remotely actuate something on the IOT
 
 import IoticLabs.JoinIOT as IOT
-
+from config import *
 import time
 
-MY_NAME        = "RepeatingActSend"
-THEIR_NAME     = "ActReceiver"
+MY_NAME        = MY_COMPUTER + "_RepeatingActSend"
+THEIR_COMPUTER = "IOT_Pi_2"
+THEIR_NAME     = THEIR_COMPUTER + "_ActReceiver"
 THEIR_ACTUATOR = "doSomething"
 REPEAT_TIME    = 1
 

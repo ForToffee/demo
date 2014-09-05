@@ -4,13 +4,14 @@
 # Sends this to a feed for others to use
 
 import IoticLabs.JoinIOT as IOT
+from config import *
 import time
 import RPi.GPIO as GPIO
+from pibrella import *
 
-MY_NAME = "ButtonFeedSend"
+MY_NAME = MY_COMPUTER + "_ButtonFeedSend"
 MY_FEED = "button"
 
-BUTTON = 10
 POLL_TIME = 0.5
 
 

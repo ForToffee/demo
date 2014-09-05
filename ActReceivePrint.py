@@ -5,9 +5,10 @@
 
 
 import IoticLabs.JoinIOT as IOT
+from config import *
 import time
 
-MY_NAME     = "ActReceivePrint"
+MY_NAME     = MY_COMPUTER + "_ActReceivePrint"
 MY_ACTUATOR = "doSomething"
   
 IOT.joinAs(MY_NAME)

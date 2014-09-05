@@ -3,9 +3,10 @@
 # Kick off a search to get the entities list database back
 
 import IoticLabs.JoinIOT as IOT
+from config import *
 import time
 
-MY_NAME = "Search"
+MY_NAME = MY_COMPUTER + "_Search"
 
 IOT.joinAs(MY_NAME)
 

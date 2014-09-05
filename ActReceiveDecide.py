@@ -5,9 +5,10 @@
 # last 15 seconds then print a message. Otherwise, do nothing
 
 import IoticLabs.JoinIOT as IOT
+from config import *
 import time
 
-MY_NAME = "ActReceiveDecide"
+MY_NAME     = MY_COMPUTER + "_ActReceiveDecide"
 MY_ACTUATOR = "printme_every" + str(IGNORE_TIME)
 IGNORE_TIME = 15
 

@@ -4,10 +4,12 @@
 # Sends this to a remote actuator, which does someting with it
 
 import IoticLabs.JoinIOT as IOT
+from config import *
 import time
 
-MY_NAME        = "ThresholdActSend"
-THEIR_NAME     = "demo"
+MY_NAME        = MY_COMPUTER + "_ThresholdActSend"
+THEIR_COMPUTER = "IOT_Pi_2"
+THEIR_NAME     = THEIR_COMPUTER + "_demo"
 THEIR_ACTUATOR = "useValue"
 
 THRESHOLD      = 50

@@ -4,11 +4,13 @@
 # 'AND' them together and display a message if they are all True
 
 import IoticLabs.JoinIOT as IOT
+from config import *
 import time
 
-MY_NAME    = "FeedsReceiveANDPrint"
-THEIR_NAME = "demo"
-THEIR_FEED = "button"
+MY_NAME        = MY_COMPUTER + "_FeedsReceiveANDPrint"
+THEIR_COMPUTER = "IOT_Pi_2"
+THEIR_NAME     = THEIR_COMPUTER + "_demo"
+THEIR_FEED     = "button"
 
 button_states = {}
 
