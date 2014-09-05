@@ -11,7 +11,7 @@ from pibrella import *
 import time
 
 
-MY_NAME        = MY_COMPUTER + "_"
+MY_NAME        = MY_COMPUTER + "_Listen"
 THEIR_COMPUTER = "IOT_Pi_2"
 THEIR_NAME     = THEIR_COMPUTER + "_Advertise"
 THEIR_FEED     = "pressed"
