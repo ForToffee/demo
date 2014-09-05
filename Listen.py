@@ -9,7 +9,7 @@ from config import *
 import RPi.GPIO as GPIO
 from pibrella import *
 import time
-import pygame
+#import pygame
 
 
 MY_NAME        = MY_COMPUTER + "_Listen"
@@ -23,8 +23,8 @@ GPIO.setup(RED_LED, GPIO.OUT)
 GPIO.output(RED_LED, False)
 
 
-pygame.mixer.init()
-sound = pygame.mixer.Sound("sounds/doorbell.wav")
+#pygame.mixer.init()
+#sound = pygame.mixer.Sound("sounds/is_cow_moo.wav")
 
 
 IOT.joinAs(MY_NAME)
@@ -32,7 +32,7 @@ IOT.joinAs(MY_NAME)
 def newData(feed, value):
   # when new data is received, it calls this function
   print("from: " + feed.originator + " new data:" + str(value))
-  sound.play()
+  #sound.play()
   GPIO.output(RED_LED, True)
   time.sleep(0.25)
   GPIO.output(RED_LED, False)

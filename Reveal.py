@@ -20,7 +20,7 @@ GPIO.setup(RED_LED, GPIO.OUT)
 GPIO.output(RED_LED, False)
 
 pygame.mixer.init()
-sound = pygame.mixer.Sound("sounds/youcant.wav")
+sound = pygame.mixer.Sound("sounds/is_cow_moo.wav")
 
 IOT.joinAs(MY_NAME)
 

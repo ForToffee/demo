@@ -9,7 +9,7 @@ from config import *
 import time
 import RPi.GPIO as GPIO
 from pibrella import *
-import pygame
+#import pygame
 
 
 MY_NAME        = MY_COMPUTER + "_Tell"
@@ -22,8 +22,8 @@ POLL_TIME = 0.5
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(BUTTON, GPIO.IN)
 
-pygame.mixer.init()
-sound = pygame.mixer.Sound("sounds/accessd.wav")
+#pygame.mixer.init()
+#sound = pygame.mixer.Sound("sounds/is_cow_moo.wav")
 
 IOT.joinAs(MY_NAME)
 led = IOT.attachTo(THEIR_NAME, THEIR_ACTUATOR)
@@ -37,7 +37,7 @@ def main():
     if GPIO.input(BUTTON) == True:
       if not b:
         print("pressed")
-        sound.play()
+        #sound.play()
         led.tell(b) 
         b = True
     else:
