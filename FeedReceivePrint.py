@@ -4,7 +4,6 @@
 # Print this data on the screen.
 
 import IoticLabs.JoinIOT as IOT
-import time
 
 MY_NAME    = "ClockWatcher"
 THEIR_NAME = "Clock"
