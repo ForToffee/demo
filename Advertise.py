@@ -10,16 +10,23 @@ from config import *
 import RPi.GPIO as GPIO
 from pibrella import *
 import time
+import pygame
 
 
 MY_NAME     = MY_COMPUTER + "_Advertise"
 MY_FEED     = "pressed"
 
-IOT.joinAs(MY_NAME)
-pressed = IOT.advertise(MY_FEED)
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(BUTTON, GPIO.IN)
+
+pygame.mixer.init()
+sound = pygame.mixer.Sound("sounds/bugle.wav")
+
+IOT.joinAs(MY_NAME)
+pressed = IOT.advertise(MY_FEED)
+
+
 
 def main():
   count = 0
@@ -31,6 +38,7 @@ def main():
       if not b:
         count = count + 1
         print("pressed:" + str(count))
+        sound.play()
         pressed.share(str(count))
         b = True
     else:

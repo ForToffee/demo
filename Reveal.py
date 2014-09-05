@@ -9,6 +9,8 @@ from config import *
 import time
 import RPi.GPIO as GPIO
 from pibrella import *
+import pygame
+
 
 MY_NAME        = MY_COMPUTER + "_Reveal"
 MY_ACTUATOR    = "LED"
@@ -17,12 +19,16 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(RED_LED, GPIO.OUT)
 GPIO.output(RED_LED, False)
 
+pygame.mixer.init()
+sound = pygame.mixer.Sound("sounds/youcant.wav")
+
 IOT.joinAs(MY_NAME)
 
 
 def newData(actuator, value):
   print("data:" + str(value))
   #state = actuator.isTrue(value)
+  sound.play()
   GPIO.output(RED_LED, True)
   time.sleep(0.5)
   GPIO.output(RED_LED, False)
