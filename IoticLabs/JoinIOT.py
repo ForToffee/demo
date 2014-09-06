@@ -48,15 +48,21 @@ def getEntityID():
 class IOTConfig:
   def __init__(self):
     # Hard coded defaults in case config_defaults.txt missing
-    # These are used if key not set in config_defaults.txt
+    # This is temporary until the configuration scheme is finalised
+    
     self.MQTT_ID      = "davidw_" + str(os.getpid())
     self.CONTAINER_ID = "davidw"
-    self.SERVER       = "demo.iotic-labs.com"
     self.MQTT_QOS     = 0
     self.MQTT_RETAIN  = False
+    
+    
+    #======== ENTER YOUR CONFIG DETAILS FROM KEYCARD HERE =========
+    self.SERVER       = "demo.iotic-labs.com"
     self.PORT         = 9210
-    self.USER         = "davidw"
-    self.PASSWORD     = "letmein"
+    self.USER         = "davidw" # same username for web interface
+    self.PASSWORD     = "letmein" # same password for web interface
+    #==============================================================
+    
     # TODO need to cache this on first use so it is always the same
     # and cache it in a file named based on the name of the
     # running script, in that directory if possible

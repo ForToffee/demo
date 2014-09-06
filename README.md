@@ -4,12 +4,16 @@
 
 Iotic-Labs
 =========
-Is an exciting new start-up in the IoT, based around Cambridge in the UK.  We are spun out of [Arkessa] a global provider of M2M and IoT solutions. Our goal is to make joining the Internet of Things easy, safe, secure and fun.
+Is an exciting new start-up in the IoT, based around Cambridge in the UK.  
+We are a spin-off from [Arkessa] a global provider of M2M and IoT 
+solutions. Our goal is to make joining the Internet of Things easy, 
+safe, secure and fun.
 
 
 This git-hub
 ----
-This git-hub is our public, demo site where you'll find all the examples and code for the workshops and hackathons that we're running.
+This git-hub is our public, demo site where you'll find all the examples 
+and code for the workshops and hackathons that we're running.
 
 License
 ----
@@ -36,10 +40,15 @@ By connecting to the Iotic Labs API, you agree to the above terms of use.
 September 2014
 
 
-What's Up?
+What's Next?
 ----
-We could invite you to the [Camjam] on the 6th of September, but it's already full.  So you'll have to wait for the next one.  Watch this space.
-
+If you came to our first workshop at [Camjam] on 6th Sept, you would
+have been given a keycard. Edit the file IoticLabs/JoinIOT.py and
+where it says "ENTER DETAILS FROM KEYCARD HERE", edit the settings
+to those that are on the keycard. You can log in to the demo web
+interface using the same details as printed on the keycard.
+We're working on the configuration scripts at the moment so this
+will be easier to make configuration changes in the next release.
 
 
 [Arkessa]:http://arkessa.com
