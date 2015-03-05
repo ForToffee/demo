@@ -1,0 +1,4 @@
+#! /bin/bash
+
+sudo route add -net 224.0.0.0 -netmask 224.0.0.0 -interface lo0
+sudo route add -net 224.0.0.0 -netmask 224.0.0.0 -interface eth0
