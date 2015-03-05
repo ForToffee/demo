@@ -42,15 +42,25 @@ September 2014
 
 What's Next?
 ----
-If you came to our first workshop at [Camjam] on 6th Sept, you would
-have been given a keycard. Edit the file IoticLabs/JoinIOT.py and
-where it says "ENTER DETAILS FROM KEYCARD HERE", edit the settings
-to those that are on the keycard. You can log in to the demo web
-interface using the same details as printed on the keycard.
-We're working on the configuration scripts at the moment so this
-will be easier to make configuration changes in the next release.
+
+Come to one of our workshops, and we'll show you how all this works. Or wait a
+little while, we're putting together an instructional video that will soon be
+published, that will show you how to get all this working.
+
+Do you know what you're doing already?
+----
+
+Click on the Download as ZIP over to the right, and then uncompress this on your
+Mac or Raspberry Pi or Linux PC. Windows support is not yet available, please
+check back later for a later version that will soon support windows.
+
+On your Mac, run ./setup_mac first to set up required network configuration.
+
+On your Raspberry Pi, run ./setup_rpi first to set up required network configuration.
+
+On your Linux PC, run ./setup_linux first to set up required network configuration.
+
 
 
 [Arkessa]:http://arkessa.com
-[Camjam]:http://camjam.me/camjam/?page_id=425
 [BSD]:https://en.wikipedia.org/wiki/BSD_licenses
