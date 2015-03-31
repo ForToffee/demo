@@ -47,6 +47,7 @@ Come to one of our workshops, and we'll show you how all this works. Or wait a
 little while, we're putting together an instructional video that will soon be
 published, that will show you how to get all this working.
 
+
 Do you know what you're doing already?
 ----
 
@@ -59,6 +60,23 @@ On your Mac, run ./setup_mac first to set up required network configuration.
 On your Raspberry Pi, run ./setup_rpi first to set up required network configuration.
 
 On your Linux PC, run ./setup_linux first to set up required network configuration.
+
+
+New features in development
+----
+
+Metadata and search - this feature will allow you to register a metadata description
+of your Nodes and Points and the data that they generate, and other Nodes can then
+search for them via a range of different criteria. This will allow you to bind
+to data points based on the type of data that they generate, rather than needing
+to know their precise name in advance. This enables the design of much more
+dynamic and ad-hoc systems.
+
+
+Discovery - a special service that repeatedly watches for certain types of nodes
+and informs your code when they come into range - this is great for building
+really late-bound dynamic systems that adapt as new devices come into range
+and go out of range.
 
 
 
