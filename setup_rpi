@@ -1,4 +1,8 @@
 #! /bin/bash
 
+echo "Setting up network routes"
+
 sudo route add -net 224.0.0.0 -netmask 224.0.0.0 -interface lo0
 sudo route add -net 224.0.0.0 -netmask 224.0.0.0 -interface eth0
+
+echo "Done"

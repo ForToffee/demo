@@ -1,0 +1,68 @@
+#! /bin/bash
+
+# An *example* script that configures the demo to show two independent LAN's
+# communicating via an external website, using gateway.py
+
+# The concept of 'put ports' and 'get ports' is used for this.
+# A 'put port' is a private URL that only one gateway.py sends data to.
+# A 'get port' is a public URL that any number of gateway.py scripts can
+# receive data from.
+
+# In this example we run both logical LANs on the same computer, with
+# different UDP port numbers by overriding some config parameters on
+# the command line to each process. This is so that you can run this
+# almost out of the box and it will do something.
+
+# You could split this demo so that some nodes run on computers on one
+# physical LAN, and some nodes run on different computers on a different
+# physical LAN.
+#
+# On each LAN, one of the computers has to be running gateway.py and connected
+# to the public internet. This is so that it routes all LAN multicast messages
+# out to the private PUT port, and so that it brings in messages via the
+# public GET port of the remote LAN.
+
+# CONFIGURATION INSTRUCTIONS
+#
+# 1. Make sure you have run the appropriate setup_ script first to configure
+#    local network multicast routes in your kernel.
+
+# 2. To configure a PUT port that routes all LAN traffic out to the web:
+#
+#    copy webport/index.php to your web host
+#    configure the www.a.com URL in put_url to point to the *folder* of that script
+#    (The / at the end is important for it to work correctly).
+#    Also make sure your web host redirects folders to index.php and that there
+#    are no other index files in that folder (this is usually the case anyway).
+
+# 3. To configure a GET port that can be monitored to bring in all data
+#    from the public side of a port into your LAN:
+#
+#    configure the www.a.com URL in get_url to point to the data.txt file
+#    in the folder
+
+
+echo Cleaning up
+./clean
+sleep 1
+
+echo Starting gateway1
+python gateway.py lanaddr=224.3.29.71:10000 put_url=http://www.a.com/iothub/test1/ get_url=http://www.a.com/iothub/test2/data.txt &
+sleep 1
+
+echo Starting gateway2
+python gateway.py lanaddr=224.3.29.71:20000 put_url=http://www.a.com/iothub/test2/ get_url=http://www.a.com/iothub/test1/data.txt &
+sleep 1
+
+echo Starting house
+python house.py dbpath=house dbid=42 lanaddr=224.3.29.71:10000 &
+sleep 1
+
+echo Starting garden
+python garden.py dbpath=garden dbid=99 lanaddr=224.3.29.71:20000 &
+sleep 1
+
+#echo Starting boiler
+#python boiler.py dbpath=boiler dbid=33 lanaddr=224.3.29.71:20000 &
+#sleep 1
+

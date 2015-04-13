@@ -8,13 +8,16 @@ from Address import StrAddress
 from DB import IdDatabase
 import netcast  # netcast.Sender and netcast.Receiver
 import time
+import Multicast
 
 
 # CONFIGURATION --------------------------------------------------------
 
-#TODO DEPRECATED, put in IOT.py
-DEFAULT_MULTICAST_ADDRESS = "224.3.29.71"
-DEFAULT_MULTICAST_PORT = 10000
+# Note, this should be the only place this default test value is set.
+DEFAULT_MULTICAST_ADDRESS = Multicast.DEFAULT_ADDRESS
+DEFAULT_MULTICAST_PORT    = Multicast.DEFAULT_PORT
+DEFAULT_LINKADDR          = Multicast.DEFAULT_LINKADDR
+
 
 #DEPRECATED, but tester still uses it
 META_FILE = "meta.txt"
@@ -127,6 +130,16 @@ def match(wanted, gotMsg, gotSrc, gotDst):
 
 # DISPATCHER -----------------------------------------------------------
 
+class Info():
+	def __init__(self, msg, src, dst):
+		self.msg = msg
+		self.src = src
+		self.dst = dst
+
+	def __repr__(self):
+		return "Info(" + str(self.msg) + " " + str(self.src) + " " + str(self.dst) + ")"
+
+
 class Dispatcher():
 	# strategies for duplicate registration detection
 	SQUASH = 0
@@ -153,17 +166,6 @@ class Dispatcher():
 
 			def dispatch(self, msg, src, dst, data):
 				#trace("Listener.dispatch")
-				#TODO The Info() class is really part of the API,
-				#so it should be handled higher up inside VirtualSpace??
-				class Info():
-					def __init__(self, msg, src, dst):
-						self.msg = msg
-						self.src = src
-						self.dst = dst
-
-					def __repr__(self):
-						return "Info(" + str(msg) + " " + str(src) + " " + str(dst) + ")"
-
 				info = Info(msg, src, dst)
 				#trace("dispatching:" + str(info) + " " + str(data))
 				#trace("calling handler:" + str(handler))
@@ -358,6 +360,7 @@ class FileConnection(Connection):
 # queue for later processing (perhaps in undecoded form?)
 
 class MulticastNetConnection(Connection):
+
 	@staticmethod
 	def getAddress(linkPath):
 		addr, port = linkPath.split(":", 1)

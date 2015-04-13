@@ -4,6 +4,20 @@
 # This can be used to build sniffer based value added services in the sandbox.
 
 
+# Limited use leases:
+#   This is an unpublished internal API, for the intention of use by internal tools
+#   only. The following have been given time-limited leases to use this API
+#   for experimental purposes
+#
+#   Mark.Wharton@iotic-labs.com  20/03/2015->31/06/2015
+#     For the purposes of a temporary metadata publishing and search experiment
+#     in the DISCOVERY EDITION.
+#
+#   David.Whale@iotic-labs.com   18/03/2015->31/06/2015
+#     For unspecified secret research purposes
+#     in the PLAY EDITION, DISCOVERY EDITION and FRIENDSHIP EDITION.
+
+
 from sandbox import Link
 from Address import Address
 

@@ -90,7 +90,7 @@ class StrAddress():
 		if s == None or len(s) < 2 :   # ()
 			raise ValueError("Invalid empty address")
 		if s[0] != '(' or s[-1] != ')':
-			raise ValueError("Address not bracketed")
+			raise ValueError("Address not bracketed: '" + s + "'")
 			
 		s = s[1:-1] # strip brackets		
 		

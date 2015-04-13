@@ -122,6 +122,6 @@ def sleep():
 if __name__ == "__main__":
 	import sys
 	me = (L_GARDEN_NODE, sys.modules[__name__])	
-	AppRunner.run(me,dbPath="garden")
+	AppRunner.run(me)
 
 # END

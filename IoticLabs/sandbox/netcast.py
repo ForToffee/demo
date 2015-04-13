@@ -5,11 +5,21 @@
 import socket
 import struct
 import time
+import Multicast
 
-ADDRESS   = "224.3.29.71"
+# For test harness only
+TEST_ADDRESS   = Multicast.DEFAULT_ADDRESS
+TEST_PORT      = Multicast.DEFAULT_PORT
+
+# But conveniently, it's the same as the address of our IOT, for logging purposes,
+# so that if you start the logger with no parameters, you get something sensible
+# still.
+
+DEFAULT_IOT_ADDRESS = Multicast.DEFAULT_ADDRESS
+DEFAULT_IOT_PORT    = Multicast.DEFAULT_PORT
+
 LOCALHOST = "127.0.0.1"
 ANYIP     = "0.0.0.0"
-PORT      = 10000
 
 
 # SENDER ---------------------------------------------------------------
@@ -18,7 +28,8 @@ PORT      = 10000
 
 class Sender():
 	"""Send messages to a nominated multicast UDP address and port number"""
-	
+
+
 	def __init__(self, address, port, ttl=1, name="Unknown"):
 		# TTL0 = local node only
 		# TTL1 = local LAN only
@@ -139,7 +150,7 @@ class Receiver():
 
 def testSender(number):
 	rate=1
-	s = Sender(ADDRESS, PORT)
+	s = Sender(TEST_ADDRESS, TEST_PORT)
 	c = 0
 	while True:
 		time.sleep(rate)
@@ -148,7 +159,7 @@ def testSender(number):
 	
 	
 def testReceiver(number):
-	r = Receiver(ADDRESS, PORT)
+	r = Receiver(TEST_ADDRESS, TEST_PORT)
 	while True:
 		address, data = r.receive()
 		print(str(number) + ":" + str(address) + ":" + str(data))
@@ -176,9 +187,9 @@ def testCooperative(tx=1, rx=1):
 	receivers = []
 	transmitters = []
 	for r in range(rx):
-		receivers.append(Receiver(ADDRESS, PORT))
+		receivers.append(Receiver(TEST_ADDRESS, TEST_PORT))
 	for t in range(tx):
-		transmitters.append(Sender(ADDRESS, PORT))
+		transmitters.append(Sender(TEST_ADDRESS, TEST_PORT))
 		
 	seq = 0
 	while True:
@@ -205,10 +216,10 @@ def testCooperative(tx=1, rx=1):
 				
 		
 def logger(address, port):
-	r = Receiver(ADDRESS, PORT)
+	r = Receiver(address, port)
 	while True:
-		data, address = r.receive()
-		print(str(address) + ":" + str(data))
+		data, addr = r.receive()
+		print(str(addr) + ":" + str(data))
 		
 		
 if __name__ == "__main__":
@@ -227,12 +238,13 @@ if __name__ == "__main__":
 		testCooperative(tx=4, rx=4)
 		
 	elif cmd == "log":
-		address = ADDRESS
-		port  = PORT
+		#TODO use Config here
+		address = DEFAULT_IOT_ADDRESS
+		port    = DEFAULT_IOT_PORT
 		if len(sys.argv) > 2:
 			address = sys.argv[2]
 			if len(sys.argv) > 3:
-				port = sys.argv[3]
+				port = int(sys.argv[3])
 
 		logger(address, port)
 	else:

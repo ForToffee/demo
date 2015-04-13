@@ -3,6 +3,7 @@
 from Address import Address
 from sandbox.Link import Dispatcher
 import time
+import Config as cfg
 
 
 # CONFIGURATION --------------------------------------------------------
@@ -12,10 +13,13 @@ import time
 
 import sandbox.Link as Link
 
+#TODO: deprecate this
 DEFAULT_DATABASE_NAME = "test"
 DEFAULT_OWNER_NAME    = "tester"
 #DEFAULT_NODE_NAME = "node" [instance]
 #DEFAULT_POINT_NAME = "point" [instance]
+
+WHOIS_POLL_RATE = cfg("whois.pollrate", default=5)
 
 
 # This allows VirtualSpace.CONSUMER and VirtualSpace.PRODUCER
@@ -40,7 +44,13 @@ def warning(msg):
 
 def getNewDatabaseId():
 	"""Get the id of a new database to create"""
-	warning("No database - please supply a globally unique number")
+	try:
+		databaseId = int(cfg("dbid"))
+		return databaseId
+	except KeyError:
+		warning("Can't find dbid in config")
+
+	print("please supply a globally unique number")
 	while True:
 		databaseId = raw_input("New databaseId:")
 		try:
@@ -59,6 +69,16 @@ def getExistingDatabaseId(dbPath):
 
 def guessDatabaseName():
 	"""Make an educated guess at the database name to use in this folder"""
+
+	# First ask the config if a dbpath has been provided
+	# as that overrides all other options.
+	try:
+		dbpath = cfg("dbpath", default=None)
+		return dbpath
+	except KeyError:
+		warning("no dbpath in config, scanning directory instead")
+
+
 	# get list of databases in current folder (files with name *.db)
 	import glob
 	candidateNames = glob.glob("*.db")
@@ -168,11 +188,14 @@ class Owner():
 	def __init__(self, ownerName, databaseId, dbPath=None, linkPath=None):
 		if databaseId == None:
 			raise ValueError("Must provide a databaseId")
+		if linkPath == None:
+			linkPath = cfg("lanaddr", default=None)
 		self.ownerName  = ownerName
 		self.dbPath     = dbPath
 		self.linkPath   = linkPath
 		self.databaseId = databaseId
 
+		#TODO: refactor as makeMeta() to be consistent with makeData()
 		if linkPath != None:
 			address = Link.MulticastNetConnection.getAddress(linkPath)
 			port    = Link.MulticastNetConnection.getPort(linkPath)
@@ -180,9 +203,6 @@ class Owner():
 		else:
 			self.meta_link = Link.MulticastNetConnection(name="VS.Owner")
 
-		#TODO pass in databaseId???
-		#TODO make path a real path, and id the name of the file at that path?
-		#i.e. if more than one db at a path, user will be asked, unless id is provided.
 		self.meta = Link.Meta(link=self.meta_link, dbPath=dbPath, databaseId=databaseId)
 
 
@@ -660,12 +680,14 @@ class Node():
 
 
 
-	def find(self, pointName, ownerName=None, nodeName=None, wait=True, timeout=60, pointType=None):
+	def find(self, pointName, ownerName=None, nodeName=None, wait=True, timeout=None, pointType=None):
 		"""Find a specific node and it's point"""
 		#trace("Node.find:" + str(ownerName) + " " + str(nodeName) + " " + str(pointName))
 
 		if pointType == None:
 			pointType = Point.GENERIC
+		if timeout == None:
+			timeout = cfg("find.timeout", default=60)
 
 		# Find a reference to the Owner
 		if ownerName == None:
@@ -691,15 +713,15 @@ class Node():
 						self.loop()
 						nodeAddr = self.meta.getNodeAddr(ownerId, nodeName)
 						if nodeAddr != None:
-							#trace("# found, within timeout limit")
+							trace("found node:" + nodeName)
 							break
 						now = time.time()
-						time.sleep(0.5) # poll rate to limit whois messaging
+						time.sleep(WHOIS_POLL_RATE) # poll rate to limit whois messaging
 
 					if nodeAddr == None:
 						raise ValueError("timeout waiting for Node:" + nodeName)
 				else:
-					raise ValueError("Node not found:" + nodeName)
+					raise ValueError("node not found:" + nodeName)
 
 		# find a reference to the Point
 		databaseId = nodeAddr[0]
@@ -715,15 +737,15 @@ class Node():
 					self.loop()
 					pointId = self.meta.getPointId(ownerId, nodeId, pointName, databaseId=databaseId)
 					if pointId != None:
-						#trace("# found, within timeout limit")
+						trace("found point:" + pointName)
 						break
 					now = time.time()
-					time.sleep(0.5) # poll rate to limit whois messaging
+					time.sleep(WHOIS_POLL_RATE) # poll rate to limit whois messaging
 
 				if pointId == None:
-					raise ValueError("timeout waiting for Point:" + pointName)
+					raise ValueError("timeout waiting for point:" + pointName)
 			else:
-				raise ValueError("Point not found:" + pointName)
+				raise ValueError("point not found:" + pointName)
 
 		#TODO should really check that the point is ADVERTISED
 
@@ -976,7 +998,7 @@ class Point():
 		if endType != Point.REMOTE:
 			if pointId == None:
 				# look to see if the number is already known
-				pointId = meta.getPointId(ownerId=ownerId, nodeId=nodeId, pointName=pointName, databaseId=self.owner.databaseId)
+				pointId = meta.getPointId(ownerId=ownerId, nodeId=nodeId, pointName=pointName, databaseId=databaseId)
 				if pointId == None:  # not known
 					raise ValueError(
 						"Cant find metadata for:(" + str(ownerId) + " " + str(nodeId) + " " + pointName + ")")

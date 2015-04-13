@@ -9,7 +9,9 @@
 
 
 from VirtualSpace import *
+from sandbox import Multicast
 import random
+import Config as cfg
 
 
 # CONSTANTS -------------------------------------------------------------------
@@ -24,13 +26,13 @@ REMOTE      = Point.REMOTE
 
 # DEFAULTS --------------------------------------------------------------------
 
+#TODO: Deprecate these two if possible.
 DEFAULT_OWNER_NAME = "Owner"
 DEFAULT_NODE_NAME  = "Node"
 
-#TODO turn this into a socket reference (ip:port or name:port)
-#so that we can use different links, and a single config parameter
-DEFAULT_LINK_ADDRESS = "224.3.29.71"
-DEFAULT_LINK_PORT    = 10000
+
+# always use this one, so that other link types can be handled with single param.
+DEFAULT_LINKADDR     = Multicast.DEFAULT_LINKADDR
 
 
 
@@ -50,8 +52,9 @@ def init(nodeName, ownerName=None, dbPath=None, linkPath=None):
     if nodeName == None:
         nodeName = DEFAULT_NODE_NAME + "#" + str(random.randint(0,65535))
     if linkPath == None:
-        linkPath = DEFAULT_LINK_ADDRESS + ":" + str(DEFAULT_LINK_PORT)
-
+        linkPath = cfg("lanaddr", default=None)
+        if linkPath == None:
+            linkPath = DEFAULT_LINKADDR
 
     myOwner = Owner.use(ownerName, linkPath=linkPath, dbPath=dbPath)
     myOwnerName = myOwner.ownerName
